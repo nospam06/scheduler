@@ -10,6 +10,6 @@ org:
       threadCount: 5
 job:
   startDelay: 0
-  repeatInterval: 6000
+  repeatInterval: 15000
   description: Sample job
   key: StatisticsJob

@@ -8,8 +8,12 @@ import org.quartz.JobKey;
 import org.quartz.PersistJobDataAfterExecution;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by Emerald on 9/28/2016.
+ *
  */
 @PersistJobDataAfterExecution
 @DisallowConcurrentExecution
@@ -21,7 +25,8 @@ public class JobTwo extends QuartzJobBean {
         JobDataMap dataMap = ctx.getJobDetail().getJobDataMap();
         int cnt = dataMap.getInt(COUNT);
         JobKey jobKey = ctx.getJobDetail().getKey();
-        System.out.println(jobKey + ": " + name + ": " + cnt);
+        System.out.println(new SimpleDateFormat("YYYY-MM-dd HH:mm:ss.sss  ").format(new Date())
+                + jobKey + ": " + name + ": " + cnt);
         cnt++;
         dataMap.put(COUNT, cnt);
     }

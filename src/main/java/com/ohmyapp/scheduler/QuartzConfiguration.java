@@ -68,8 +68,9 @@ public class QuartzConfiguration {
         quartzProperties.setProperty("org.quartz.scheduler.instanceName", instanceName);
         quartzProperties.setProperty("org.quartz.scheduler.instanceId", instanceId);
         quartzProperties.setProperty("org.quartz.threadPool.threadCount", threadCount);
-        quartzProperties.setProperty("org.quartz.jobStore.class", "org.quartz.impl.jdbcjobstore.JobStoreTX");
-        quartzProperties.setProperty("org.quartz.jobStore.driverDelegateClass", "org.quartz.impl.jdbcjobstore.StdJDBCDelegate");
+        quartzProperties.setProperty("org.quartz.jobStore.isClustered", "true");
+        //quartzProperties.setProperty("org.quartz.jobStore.class", "org.quartz.impl.jdbcjobstore.JobStoreTX");
+        //quartzProperties.setProperty("org.quartz.jobStore.driverDelegateClass", "org.quartz.impl.jdbcjobstore.StdJDBCDelegate");
 
         factory.setDataSource(dataSource);
 
@@ -85,6 +86,7 @@ public class QuartzConfiguration {
         factoryBean.setJobDetail(jobDetailFactoryBean().getObject());
         factoryBean.setStartDelay(startDelay);
         factoryBean.setRepeatInterval(repeatInterval);
+        factoryBean.setMisfireInstruction(4);
         factoryBean.setRepeatCount(SimpleTrigger.REPEAT_INDEFINITELY);
         factoryBean.setMisfireInstruction(SimpleTrigger.MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_REMAINING_COUNT);
         return factoryBean;

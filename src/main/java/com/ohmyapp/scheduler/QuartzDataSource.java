@@ -1,8 +1,8 @@
 package com.ohmyapp.scheduler;
 
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 
@@ -14,10 +14,9 @@ import javax.sql.DataSource;
 public class QuartzDataSource {
     @Bean
     public DataSource dataSource() {
-        MysqlDataSource ds = new MysqlDataSource();
-        ds.setURL("jdbc:mysql://localhost/test");
-        ds.setCreateDatabaseIfNotExist(true);
-        ds.setUser("test");
+        DriverManagerDataSource ds = new DriverManagerDataSource();
+        ds.setUrl("jdbc:mysql://localhost/test");
+        ds.setUsername("test");
         ds.setPassword("test");
         return ds;
     }
