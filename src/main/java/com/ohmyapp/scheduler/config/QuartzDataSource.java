@@ -1,4 +1,4 @@
-package com.ohmyapp.scheduler;
+package com.ohmyapp.scheduler.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

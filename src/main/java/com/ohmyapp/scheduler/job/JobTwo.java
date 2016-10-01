@@ -10,6 +10,7 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Emerald on 9/28/2016.
@@ -25,10 +26,15 @@ public class JobTwo extends QuartzJobBean {
         JobDataMap dataMap = ctx.getJobDetail().getJobDataMap();
         int cnt = dataMap.getInt(COUNT);
         JobKey jobKey = ctx.getJobDetail().getKey();
-        System.out.println(new SimpleDateFormat("YYYY-MM-dd HH:mm:ss.sss  ").format(new Date())
-                + jobKey + ": " + name + ": " + cnt);
+        System.out.println(new SimpleDateFormat("YYYY-MM-dd HH:mm:ss.SSS").format(new Date())
+                + "   " + jobKey + ": " + name + ": " + cnt);
         cnt++;
         dataMap.put(COUNT, cnt);
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setName(String name) {

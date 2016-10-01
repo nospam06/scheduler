@@ -4,12 +4,12 @@ spring:
 org:
   quartz:
     scheduler:
-      instanceName: spring-boot-quartz-demo
-      instanceId: AUTO
+      instanceName: tenant1Jobs
+      instanceId: tenant1
     threadPool:
       threadCount: 5
 job:
-  startDelay: 0
-  repeatInterval: 15000
+  startDelay: 5000
+  repeatInterval: 3000
   description: Sample job
-  key: StatisticsJob
+  key: count
