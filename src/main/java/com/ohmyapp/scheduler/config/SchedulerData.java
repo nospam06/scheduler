@@ -1,4 +1,4 @@
-package com.ohmyapp.scheduler.pojo;
+package com.ohmyapp.scheduler.config;
 
 /**
  * Created by Emerald on 10/1/2016.

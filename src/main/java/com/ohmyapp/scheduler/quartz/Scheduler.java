@@ -1,9 +1,9 @@
 package com.ohmyapp.scheduler.quartz;
 
-import com.ohmyapp.scheduler.pojo.ScheduleData;
-import com.ohmyapp.scheduler.pojo.ScheduledTaskData;
-import com.ohmyapp.scheduler.pojo.SchedulerData;
-import com.ohmyapp.scheduler.pojo.TaskData;
+import com.ohmyapp.scheduler.config.ScheduleData;
+import com.ohmyapp.scheduler.config.ScheduledTaskData;
+import com.ohmyapp.scheduler.config.SchedulerData;
+import com.ohmyapp.scheduler.config.TaskData;
 import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 import org.slf4j.Logger;
@@ -31,12 +31,12 @@ public class Scheduler {
     private static final Logger LOGGER = LoggerFactory.getLogger(Scheduler.class);
 
     @Autowired
-    private SchedulerConfiguration quartzConfig;
+    private SpringSupport springSupport;
 
     private SchedulerFactoryBean scheduler;
 
     public void startScheduler(SchedulerData schedulerData) {
-        scheduler = quartzConfig.schedulerFactoryBean();
+        scheduler = springSupport.schedulerFactoryBean();
         scheduler.setOverwriteExistingJobs(true);
         scheduler.setStartupDelay(schedulerData.getStartupDelay());
         scheduler.setJobFactory(new SpringBeanJobFactory());
@@ -57,7 +57,7 @@ public class Scheduler {
         Trigger[] triggers = new Trigger[taskList.size()];
         int count = 0;
         for (ScheduledTaskData scheduledTask : taskList) {
-            JobDetailFactoryBean jobDetail = quartzConfig.jobDetailFactoryBean();
+            JobDetailFactoryBean jobDetail = springSupport.jobDetailFactoryBean();
             TaskData taskData = scheduledTask.getTask();
             jobDetail.setName(taskData.getName());
             jobDetail.setGroup(taskData.getGroup());
@@ -68,7 +68,7 @@ public class Scheduler {
             jobDetail.setJobDataAsMap(taskParam);
             jobDetail.afterPropertiesSet();
 
-            CronTriggerFactoryBean trigger = quartzConfig.cronTriggerFactoryBean();
+            CronTriggerFactoryBean trigger = springSupport.cronTriggerFactoryBean();
             ScheduleData schedule = scheduledTask.getSchedule();
             trigger.setName(schedule.getName());
             trigger.setGroup(schedule.getGroup());

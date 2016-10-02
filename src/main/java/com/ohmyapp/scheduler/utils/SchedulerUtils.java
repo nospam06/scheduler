@@ -1,9 +1,9 @@
 package com.ohmyapp.scheduler.utils;
 
-import com.ohmyapp.scheduler.pojo.ScheduleData;
-import com.ohmyapp.scheduler.pojo.ScheduledTaskData;
-import com.ohmyapp.scheduler.pojo.SchedulerData;
-import com.ohmyapp.scheduler.pojo.TaskData;
+import com.ohmyapp.scheduler.config.ScheduleData;
+import com.ohmyapp.scheduler.config.ScheduledTaskData;
+import com.ohmyapp.scheduler.config.SchedulerData;
+import com.ohmyapp.scheduler.config.TaskData;
 
 import java.util.ArrayList;
 import java.util.HashMap;

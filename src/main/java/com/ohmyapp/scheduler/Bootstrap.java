@@ -1,7 +1,7 @@
 package com.ohmyapp.scheduler;
 
-import com.ohmyapp.scheduler.pojo.ScheduledTaskData;
-import com.ohmyapp.scheduler.pojo.SchedulerData;
+import com.ohmyapp.scheduler.config.ScheduledTaskData;
+import com.ohmyapp.scheduler.config.SchedulerData;
 import com.ohmyapp.scheduler.quartz.Scheduler;
 import com.ohmyapp.scheduler.utils.SchedulerUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -15,15 +15,15 @@ import javax.annotation.PostConstruct;
  * quartz
  */
 @Configuration
-public class SchedulerConfiguration {
-    static SchedulerConfiguration configuration;
+public class SpringSupport {
+    static SpringSupport springSupport;
 
     @Autowired
     private ApplicationContext context;
 
     @PostConstruct
     public void init() {
-        configuration = this;
+        springSupport = this;
     }
 
     ApplicationContext getContext() {

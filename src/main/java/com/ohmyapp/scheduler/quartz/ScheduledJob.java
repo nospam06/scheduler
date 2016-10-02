@@ -21,7 +21,7 @@ public class ScheduledJob extends QuartzJobBean {
         JobDataMap dataMap = jobContext.getJobDetail().getJobDataMap();
         String task = jobContext.getJobDetail().getDescription();
         HashMap<String, Object> parmMap = new HashMap<>(dataMap);
-        ApplicationContext context = SchedulerConfiguration.configuration.getContext();
+        ApplicationContext context = SpringSupport.springSupport.getContext();
         Task taskBean = context.getBean(task, Task.class);
 
         parmMap.put("key", jobContext.getJobDetail().getKey().toString());

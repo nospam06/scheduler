@@ -20,7 +20,7 @@ public class TaskOne implements Task {
     @Override
     public void execute(Map<String, Object> parm) {
         Object jobKey = parm.get("key");
-        LOGGER.info("{}   {}", new SimpleDateFormat("YYYY-MM-dd HH:mm:ss.SSS").format(new Date()),
+        LOGGER.info("{} {}", new SimpleDateFormat("YYYY-MM-dd HH:mm:ss.SSS").format(new Date()),
                  jobKey);
     }
 }

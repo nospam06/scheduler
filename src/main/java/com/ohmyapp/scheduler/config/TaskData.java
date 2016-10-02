@@ -1,4 +1,4 @@
-package com.ohmyapp.scheduler.pojo;
+package com.ohmyapp.scheduler.config;
 
 import java.util.HashMap;
 import java.util.Map;
