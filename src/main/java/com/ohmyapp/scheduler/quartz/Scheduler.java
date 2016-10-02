@@ -6,6 +6,8 @@ import com.ohmyapp.scheduler.pojo.SchedulerData;
 import com.ohmyapp.scheduler.pojo.TaskData;
 import org.quartz.SchedulerException;
 import org.quartz.Trigger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
@@ -26,6 +28,8 @@ import java.util.Properties;
  */
 @Component
 public class Scheduler {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Scheduler.class);
+
     @Autowired
     private SchedulerConfiguration quartzConfig;
 
@@ -76,7 +80,7 @@ public class Scheduler {
             try {
                 trigger.afterPropertiesSet();
             } catch (ParseException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
             triggers[count++] = trigger.getObject();
         }
@@ -84,7 +88,7 @@ public class Scheduler {
         try {
             scheduler.afterPropertiesSet();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         scheduler.start();
     }

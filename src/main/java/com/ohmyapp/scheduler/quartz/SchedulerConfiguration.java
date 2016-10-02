@@ -26,7 +26,7 @@ public class SchedulerConfiguration {
         configuration = this;
     }
 
-    public ApplicationContext getContext() {
+    ApplicationContext getContext() {
         return context;
     }
 

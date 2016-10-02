@@ -14,6 +14,10 @@ import java.util.List;
  * utils
  */
 public class SchedulerUtils {
+    private SchedulerUtils() {
+        // static class
+    }
+
     public static SchedulerData loadSchedulerConfig() {
         SchedulerData schedulerData = new SchedulerData();
         schedulerData.setId("ohmyapp");

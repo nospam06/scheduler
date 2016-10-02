@@ -1,6 +1,5 @@
 package com.ohmyapp.scheduler.api;
 
-import java.io.Serializable;
 import java.util.Map;
 
 /**
