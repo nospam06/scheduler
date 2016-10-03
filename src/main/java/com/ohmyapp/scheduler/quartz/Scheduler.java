@@ -39,7 +39,7 @@ public class Scheduler {
         scheduler = springSupport.schedulerFactoryBean();
         scheduler.setOverwriteExistingJobs(true);
         scheduler.setStartupDelay(schedulerData.getStartupDelay());
-        scheduler.setJobFactory(new SpringBeanJobFactory());
+        scheduler.setJobFactory(springSupport.springJobFactory());
         scheduler.setDataSource(dataSource(schedulerData.getDsUrl(), schedulerData.getDsUser(),
                 schedulerData.getDsPassword()));
 

@@ -1,14 +1,10 @@
 package com.ohmyapp.scheduler.quartz;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
 import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
-
-import javax.annotation.PostConstruct;
 
 /**
  * Created by Emerald on 9/26/2016.
@@ -16,20 +12,6 @@ import javax.annotation.PostConstruct;
  */
 @Configuration
 public class SpringSupport {
-    static SpringSupport springSupport;
-
-    @Autowired
-    private ApplicationContext context;
-
-    @PostConstruct
-    public void init() {
-        springSupport = this;
-    }
-
-    ApplicationContext getContext() {
-        return context;
-    }
-
     @Bean
     public SchedulerFactoryBean schedulerFactoryBean() {
         SchedulerFactoryBean scheduler = new SchedulerFactoryBean();
@@ -51,5 +33,10 @@ public class SpringSupport {
         jobDetail.setJobClass(ScheduledJob.class);
         jobDetail.setDurability(true);
         return jobDetail;
+    }
+
+    @Bean
+    public SpringJobFactory springJobFactory() {
+        return new SpringJobFactory();
     }
 }
