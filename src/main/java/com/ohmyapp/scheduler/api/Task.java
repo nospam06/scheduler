@@ -1,5 +1,6 @@
 package com.ohmyapp.scheduler.api;
 
+import java.io.Serializable;
 import java.util.Map;
 
 /**
@@ -9,7 +10,8 @@ import java.util.Map;
 public interface Task {
     /**
      * execute task with parm
-     * @param parm  parameter
+     *
+     * @param parm parameter
      */
-    void execute(Map<String, Object> parm);
+    void execute(Map<String, Serializable> parm);
 }

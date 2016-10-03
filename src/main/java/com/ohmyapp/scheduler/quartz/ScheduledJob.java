@@ -8,7 +8,9 @@ import org.quartz.JobExecutionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
+import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Emerald on 10/1/2016.
@@ -16,11 +18,14 @@ import java.util.HashMap;
  */
 @DisallowConcurrentExecution
 public class ScheduledJob extends QuartzJobBean {
-     @Override
+    @Override
     protected void executeInternal(JobExecutionContext jobContext) throws JobExecutionException {
         JobDataMap dataMap = jobContext.getJobDetail().getJobDataMap();
         String task = jobContext.getJobDetail().getDescription();
-        HashMap<String, Object> parmMap = new HashMap<>(dataMap);
+        HashMap<String, Serializable> parmMap = new HashMap<>();
+        for (Map.Entry<String, Object> entry : dataMap.entrySet()) {
+            parmMap.put(entry.getKey(), (Serializable) entry.getValue());
+        }
         ApplicationContext context = SpringSupport.springSupport.getContext();
         Task taskBean = context.getBean(task, Task.class);
 
