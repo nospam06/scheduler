@@ -24,9 +24,6 @@ public class SpringSupport {
     @Scope(value = "prototype")
     public CronTriggerFactoryBean cronTriggerFactoryBean(JobDetailFactoryBean jobDetailFactoryBean) {
         CronTriggerFactoryBean trigger = new CronTriggerFactoryBean();
-        if (jobDetailFactoryBean == null ) {
-            jobDetailFactoryBean = jobDetailFactoryBean();
-        }
         trigger.setJobDetail(jobDetailFactoryBean.getObject());
         trigger.setCronExpression("0 0/1 * 1/1 * ? *");
         return trigger;

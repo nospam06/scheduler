@@ -49,7 +49,6 @@ public class Scheduler {
         quartzProperties.setProperty("org.quartz.jobStore.misfireThreshold", schedulerData.getMissfireThreshold());
         quartzProperties.setProperty("org.quartz.jobStore.isClustered", schedulerData.getCluster());
         scheduler.setQuartzProperties(quartzProperties);
-
     }
 
     public void setTasks(List<ScheduledTaskData> taskList) {
