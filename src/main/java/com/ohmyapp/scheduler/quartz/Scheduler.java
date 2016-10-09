@@ -32,13 +32,16 @@ public class Scheduler {
     @Autowired
     private SpringSupport springSupport;
 
+    @Autowired
+    private SpringJobFactory springJobFactory;
+
     private SchedulerFactoryBean scheduler;
 
     public void startScheduler(SchedulerData schedulerData) {
         scheduler = springSupport.schedulerFactoryBean();
         scheduler.setOverwriteExistingJobs(true);
         scheduler.setStartupDelay(schedulerData.getStartupDelay());
-        scheduler.setJobFactory(springSupport.springJobFactory());
+        scheduler.setJobFactory(springJobFactory);
         scheduler.setDataSource(dataSource(schedulerData.getDsUrl(), schedulerData.getDsUser(),
                 schedulerData.getDsPassword()));
 
@@ -57,6 +60,7 @@ public class Scheduler {
         for (ScheduledTaskData scheduledTask : taskList) {
             JobDetailFactoryBean jobDetail = springSupport.jobDetailFactoryBean();
             TaskData taskData = scheduledTask.getTask();
+            jobDetail.setBeanName(taskData.getName());
             jobDetail.setName(taskData.getName());
             jobDetail.setGroup(taskData.getGroup());
             jobDetail.setDescription(taskData.getTaskProvider());
@@ -68,13 +72,13 @@ public class Scheduler {
 
             CronTriggerFactoryBean trigger = springSupport.cronTriggerFactoryBean(jobDetail);
             ScheduleData schedule = scheduledTask.getSchedule();
+            trigger.setBeanName(schedule.getName());
             trigger.setName(schedule.getName());
             trigger.setGroup(schedule.getGroup());
             trigger.setDescription(schedule.getDescription());
             trigger.setMisfireInstructionName(schedule.getMisfireInstruction());
             trigger.setCronExpression(schedule.getCronString());
             trigger.setStartDelay(schedule.getStartDelay());
-            trigger.setJobDetail(jobDetail.getObject());
             try {
                 trigger.afterPropertiesSet();
             } catch (ParseException e) {

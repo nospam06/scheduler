@@ -1,17 +1,16 @@
 package com.ohmyapp.scheduler.quartz;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
 import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by Emerald on 9/26/2016.
  * quartz
  */
-@Configuration
+@Component
 public class SpringSupport {
     @Bean
     public SchedulerFactoryBean schedulerFactoryBean() {
@@ -21,7 +20,6 @@ public class SpringSupport {
     }
 
     @Bean
-    @Scope(value = "prototype")
     public CronTriggerFactoryBean cronTriggerFactoryBean(JobDetailFactoryBean jobDetailFactoryBean) {
         CronTriggerFactoryBean trigger = new CronTriggerFactoryBean();
         trigger.setJobDetail(jobDetailFactoryBean.getObject());
@@ -35,10 +33,5 @@ public class SpringSupport {
         jobDetail.setJobClass(ScheduledJob.class);
         jobDetail.setDurability(true);
         return jobDetail;
-    }
-
-    @Bean
-    public SpringJobFactory springJobFactory() {
-        return new SpringJobFactory();
     }
 }
