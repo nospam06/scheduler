@@ -42,7 +42,7 @@ public class SchedulerUtils {
         schedule.setName("schedule1");
         schedule.setGroup("group1");
         schedule.setStartDelay(0);
-        schedule.setCronString("0 0/1 * * * ? *");
+        schedule.setCronString("15 0/1 * * * ? *");
         schedule.setMisfireInstruction("MISFIRE_INSTRUCTION_SMART_POLICY");
 
         TaskData task = new TaskData();
@@ -51,6 +51,24 @@ public class SchedulerUtils {
         task.setName("task1");
         task.setTaskParam(new HashMap<>());
         task.setTaskProvider("TaskOne");
+
+        ScheduledTaskData scheduledTask2 = new ScheduledTaskData();
+        scheduledTasks.add(scheduledTask2);
+
+        ScheduleData schedule2 = new ScheduleData();
+        scheduledTask2.setSchedule(schedule2);
+        schedule2.setName("schedule1");
+        schedule2.setGroup("group1");
+        schedule2.setStartDelay(0);
+        schedule2.setCronString("45 0/1 * * * ? *");
+        schedule2.setMisfireInstruction("MISFIRE_INSTRUCTION_SMART_POLICY");
+
+        TaskData task2 = new TaskData();
+        scheduledTask2.setTask(task2);
+        task2.setGroup("group2");
+        task2.setName("task2");
+        task2.setTaskParam(new HashMap<>());
+        task2.setTaskProvider("TaskTwo");
 
         return scheduledTasks;
     }

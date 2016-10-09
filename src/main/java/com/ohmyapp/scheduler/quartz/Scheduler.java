@@ -13,7 +13,6 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
 import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
-import org.springframework.scheduling.quartz.SpringBeanJobFactory;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
@@ -68,7 +67,7 @@ public class Scheduler {
             jobDetail.setJobDataAsMap(taskParam);
             jobDetail.afterPropertiesSet();
 
-            CronTriggerFactoryBean trigger = springSupport.cronTriggerFactoryBean();
+            CronTriggerFactoryBean trigger = springSupport.cronTriggerFactoryBean(jobDetail);
             ScheduleData schedule = scheduledTask.getSchedule();
             trigger.setName(schedule.getName());
             trigger.setGroup(schedule.getGroup());
