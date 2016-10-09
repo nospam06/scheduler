@@ -59,4 +59,28 @@ public class ScheduleData {
     public void setStartDelay(long startDelay) {
         this.startDelay = startDelay;
     }
+
+    @Override
+    public int hashCode() {
+        return (group + name).hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (super.equals(other)) {
+            return true;
+        }
+        if (getClass().equals(other.getClass())) {
+            TaskData otherTask = (TaskData) other;
+            if (getGroup().equals(otherTask.getGroup()) && getName().equals(otherTask.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return getGroup() + '.' + getName();
+    }
 }

@@ -30,15 +30,12 @@ public class Scheduler {
     private static final Logger LOGGER = LoggerFactory.getLogger(Scheduler.class);
 
     @Autowired
-    private SpringSupport springSupport;
-
-    @Autowired
     private SpringJobFactory springJobFactory;
 
     private SchedulerFactoryBean scheduler;
 
     public void startScheduler(SchedulerData schedulerData) {
-        scheduler = springSupport.schedulerFactoryBean();
+        scheduler = new SchedulerFactoryBean();
         scheduler.setOverwriteExistingJobs(true);
         scheduler.setStartupDelay(schedulerData.getStartupDelay());
         scheduler.setJobFactory(springJobFactory);
@@ -58,9 +55,8 @@ public class Scheduler {
         Trigger[] triggers = new Trigger[taskList.size()];
         int count = 0;
         for (ScheduledTaskData scheduledTask : taskList) {
-            JobDetailFactoryBean jobDetail = springSupport.jobDetailFactoryBean();
+            JobDetailFactoryBean jobDetail = new JobDetailFactoryBean();
             TaskData taskData = scheduledTask.getTask();
-            jobDetail.setBeanName(taskData.getName());
             jobDetail.setName(taskData.getName());
             jobDetail.setGroup(taskData.getGroup());
             jobDetail.setDescription(taskData.getTaskProvider());
@@ -70,15 +66,15 @@ public class Scheduler {
             jobDetail.setJobDataAsMap(taskParam);
             jobDetail.afterPropertiesSet();
 
-            CronTriggerFactoryBean trigger = springSupport.cronTriggerFactoryBean(jobDetail);
+            CronTriggerFactoryBean trigger = new CronTriggerFactoryBean();
             ScheduleData schedule = scheduledTask.getSchedule();
-            trigger.setBeanName(schedule.getName());
             trigger.setName(schedule.getName());
             trigger.setGroup(schedule.getGroup());
             trigger.setDescription(schedule.getDescription());
             trigger.setMisfireInstructionName(schedule.getMisfireInstruction());
             trigger.setCronExpression(schedule.getCronString());
             trigger.setStartDelay(schedule.getStartDelay());
+            trigger.setJobDetail(jobDetail.getObject());
             try {
                 trigger.afterPropertiesSet();
             } catch (ParseException e) {
